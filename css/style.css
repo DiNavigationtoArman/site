@@ -1,0 +1,1680 @@
+/* =============================================
+   UNDANGAN ENGAGEMENT — Dina & Arman
+   Design: Aesthetic Pink · Real photos · Envelope countdown
+   ============================================= */
+
+:root {
+  --pink-deep: #c4898a;
+  --pink-mid: #d4a5a5;
+  --pink-light: #edd5d5;
+  --pink-pale: #f7eded;
+  --cream: #fdf8f4;
+  --cream-dark: #f0e8e0;
+  --cream-mid: #f5efe8;
+  --gold: #c9a96e;
+  --gold-light: #e8d5b0;
+  --text-dark: #3a2e2e;
+  --text-mid: #6b5555;
+  --text-light: #a08080;
+  --white: #ffffff;
+  --shadow-soft: 0 8px 40px rgba(196, 137, 138, 0.15);
+  --shadow-card: 0 20px 60px rgba(58, 46, 46, 0.12);
+  --radius: 20px;
+  --tr: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: "Jost", sans-serif;
+  background: var(--cream);
+  color: var(--text-dark);
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ---- SHARED ---- */
+.section-eyebrow {
+  font-family: "Jost", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--pink-deep);
+  margin-bottom: 8px;
+}
+.section-eyebrow.light {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.section-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 400;
+  color: var(--text-dark);
+  margin-bottom: 36px;
+  line-height: 1.2;
+}
+.section-title em {
+  font-family: "Great Vibes", cursive;
+  font-style: normal;
+  color: var(--pink-deep);
+}
+.section-title.light {
+  color: var(--white);
+}
+
+/* ---- Huruf awal nama (Dina/Arman) — dibuat kapital tegas
+       supaya tidak terbaca seperti huruf kecil di font script ---- */
+.name-cap {
+  font-family: "Cormorant Garamond";
+  font-style: italic;
+  font-weight: 600;
+  text-transform: none;
+  font-size: 1em;
+  letter-spacing: 0.01em;
+  color: inherit;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =============================================
+   COVER
+   ============================================= */
+.cover-section {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  transition:
+    opacity 0.9s ease,
+    visibility 0.9s ease;
+}
+.cover-section.closing {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.cover-bg-photo {
+  position: absolute;
+  inset: 0;
+  background: url("../assets/images/cover-bg-art.jpg") center/cover no-repeat;
+  z-index: 0;
+}
+.cover-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse at 50% 40%,
+      rgba(253, 240, 240, 0.55) 0%,
+      rgba(253, 240, 240, 0.15) 60%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.25) 0%,
+      rgba(253, 248, 244, 0.5) 100%
+    );
+  z-index: 1;
+}
+.bg-photo {
+  position: absolute;
+  width: 500px;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.15;
+  filter: grayscale(20%);
+  z-index: 1;
+}
+
+.bg-shadow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(
+    circle,
+    rgba(245, 230, 220, 0.95) 0%,
+    rgba(245, 230, 220, 0.55) 50%,
+    transparent 80%
+  );
+  z-index: 0;
+}
+/* ---- Bunga minimalis berjatuhan di cover ---- */
+.petals {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+.petal {
+  position: absolute;
+  top: -8%;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation-name: petal-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.petal svg {
+  display: block;
+}
+@keyframes petal-fall {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  6% {
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate(var(--petal-drift), 55vh) rotate(var(--petal-rot));
+  }
+  92% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate(calc(var(--petal-drift) * 1.7), 112vh)
+      rotate(calc(var(--petal-rot) * 2));
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .petal {
+    animation: none;
+    display: none;
+  }
+}
+
+/* Foto Dina & Arman di kiri-kanan cover */
+.cover-photo {
+  position: absolute;
+  bottom: -12px;
+  z-index: 2;
+  height: clamp(300px, 52vh, 560px);
+  width: auto;
+  pointer-events: none;
+  filter: drop-shadow(0 18px 30px rgba(58, 46, 46, 0.28));
+}
+.cover-photo--bride {
+  left: clamp(-30px, -3vw, 0px);
+  bottom: -26px;
+}
+.cover-photo--groom {
+  right: clamp(-30px, -3vw, 0px);
+  bottom: -12px;
+}
+
+.cover-content {
+  position: relative;
+  z-index: 3;
+  max-width: 520px;
+  padding: 48px 40px;
+}
+
+.cover-eyebrow {
+  font-family: "Jost", sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 12px;
+}
+
+.cover-title-script {
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(3rem, 9vw, 5rem);
+  color: var(--pink-deep);
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 18px;
+}
+.cover-title-script em {
+  font-style: normal;
+  font-size: 0.75em;
+  display: block;
+  color: var(--text-mid);
+  font-family: "Cormorant Garamond", serif;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.cover-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.cover-divider-line {
+  flex: 1;
+  max-width: 60px;
+  height: 1px;
+  background: var(--pink-light);
+}
+.cover-divider-diamond {
+  color: var(--gold);
+  font-size: 0.55rem;
+}
+
+.cover-of-text {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--text-light);
+  margin-bottom: 6px;
+}
+
+.cover-names-script {
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(2.8rem, 8vw, 4.2rem);
+  font-weight: 400;
+  color: var(--text-dark);
+  line-height: 1;
+  margin-bottom: 14px;
+}
+.cover-names-script .amp-script {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  color: var(--pink-deep);
+  font-size: 0.65em;
+}
+
+.cover-fullnames {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.98rem;
+  color: var(--text-mid);
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+.cover-fullnames-groom {
+  display: block;
+}
+
+.cover-guest {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 10px;
+  font-size: 0.85rem;
+  color: var(--text-mid);
+}
+.cover-guest-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+}
+.cover-guest strong {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.1rem;
+  color: var(--text-dark);
+}
+
+.cover-date-text {
+  font-family: "Jost", sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 18px;
+}
+
+/* Wax seal cover */
+.cover-seal-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.cover-seal {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 50%;
+  filter: drop-shadow(0 6px 16px rgba(196, 137, 138, 0.4));
+}
+
+.open-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 36px;
+  border: 1.5px solid var(--pink-mid);
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  font-family: "Jost", sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dark);
+  transition: var(--tr);
+}
+.open-btn:hover {
+  background: var(--pink-mid);
+  border-color: var(--pink-mid);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px rgba(212, 165, 165, 0.4);
+}
+.open-btn-envelope {
+  display: flex;
+  align-items: center;
+}
+
+/* =============================================
+   NAV
+   ============================================= */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 5%;
+  background: rgba(253, 248, 244, 0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(212, 165, 165, 0.2);
+  transition: box-shadow 0.3s;
+}
+.nav.scrolled {
+  box-shadow: var(--shadow-soft);
+}
+
+.nav-logo {
+  font-family: "alex brush", cursive;
+  font-size: 1.9rem;
+  color: var(--pink-deep);
+  line-height: 1;
+  text-transform: none;
+}
+.nav-logo span {
+  font-size: 1.3rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  font-family: "Jost", sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-mid);
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 3px;
+  transition: color 0.3s;
+}
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--pink-mid);
+  transition: width 0.3s;
+}
+.nav-links a:hover {
+  color: var(--pink-deep);
+}
+.nav-links a:hover::after {
+  width: 100%;
+}
+@media (max-width: 640px) {
+  .nav-links {
+    display: none;
+  }
+}
+
+/* =============================================
+   HERO — foto full screen
+   ============================================= */
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: 80px;
+}
+
+.hero-bg-gradient {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(
+      ellipse at 50% 38%,
+      rgba(237, 213, 213, 0.55) 0%,
+      rgba(253, 248, 244, 0) 60%
+    ),
+    linear-gradient(
+      160deg,
+      var(--cream) 0%,
+      var(--cream-mid) 42%,
+      var(--pink-pale) 78%,
+      var(--pink-light) 100%
+    );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+@keyframes heroFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.hero-section.active .fade-in {
+  animation: heroFadeUp 0.9s ease both;
+}
+.hero-section.active .hero-couple-photo {
+  animation-delay: 0.3s;
+}
+
+.hero-couple-photo {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 92vw;
+  max-height: calc(100vh - 140px);
+  object-fit: contain;
+  margin: 0 auto;
+  filter: drop-shadow(0 30px 45px rgba(58, 46, 46, 0.28))
+    drop-shadow(0 8px 14px rgba(58, 46, 46, 0.16));
+}
+
+@media (max-width: 480px) {
+  .hero-couple-photo {
+    max-width: 94vw;
+    max-height: calc(100vh - 120px);
+  }
+}
+
+/* =============================================
+   ENVELOPE SECTION  (quote + countdown kartu)
+   ============================================= */
+.envelope-section {
+  position: relative;
+  padding: 90px 5% 100px;
+  text-align: center;
+  background: var(--cream-dark);
+  overflow: hidden;
+}
+
+.envelope-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(212, 165, 165, 0.18) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 50% 100%,
+      rgba(201, 169, 110, 0.08) 0%,
+      transparent 55%
+    );
+}
+
+/* ---- Quote block ---- */
+.quote-block {
+  position: relative;
+  z-index: 1;
+  max-width: 520px;
+  margin: 0 auto 56px;
+}
+.quote-leaf-icon {
+  color: var(--gold);
+  display: flex;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+.quote-text {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 1.12rem;
+  line-height: 1.7;
+  color: var(--text-mid);
+}
+.quote-source {
+  margin-top: 12px;
+  font-family: "Jost", sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pink-deep);
+}
+
+/* ---- Countdown di ATAS amplop ---- */
+.std-countdown-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 480px;
+  margin: 0 auto 64px;
+  text-align: center;
+}
+.std-countdown-label {
+  font-family: "Jost", sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--pink-deep);
+  margin-bottom: 16px;
+}
+.std-countdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.cd-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--white);
+  border: 1px solid var(--pink-light);
+  border-radius: 12px;
+  padding: 14px 16px;
+  min-width: 64px;
+  box-shadow: 0 8px 20px rgba(196, 137, 138, 0.14);
+}
+.cd-num {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2.1rem;
+  font-weight: 400;
+  color: var(--pink-deep);
+  line-height: 1;
+  display: block;
+  transition:
+    opacity 0.2s,
+    transform 0.2s;
+}
+.cd-lbl {
+  font-family: "Jost", sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+.cd-sep {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.9rem;
+  color: var(--pink-mid);
+  line-height: 1;
+  margin-bottom: 14px;
+}
+
+/* =============================================
+   SAVE THE DATE — amplop terbuka + surat kalender
+   ============================================= */
+.std-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: center;
+}
+.std-eyebrow {
+  font-family: "Jost", sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.28em;
+  text-transform: none;
+  color: var(--pink-deep);
+  margin-bottom: 6px;
+}
+.std-names-script {
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(2rem, 6vw, 2.6rem);
+  color: var(--text-dark);
+  margin-bottom: 36px;
+}
+.std-names-script em {
+  font-style: normal;
+  color: var(--pink-deep);
+}
+
+.std-card-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+/* mawar dekorasi kiri/kanan kartu */
+.std-rose {
+  position: absolute;
+  width: 120px;
+  pointer-events: none;
+  filter: drop-shadow(0 14px 28px rgba(196, 137, 138, 0.35));
+  z-index: 0;
+}
+.std-rose--left {
+  left: -70px;
+  top: -40px;
+  transform: rotate(-25deg) scaleX(-1);
+}
+.std-rose--right {
+  right: -70px;
+  bottom: -30px;
+  transform: rotate(-25deg);
+}
+
+/* kartu kalender */
+.std-letter {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 0 auto;
+  background: var(--white);
+  border-radius: 20px;
+  padding: 28px 24px 22px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--pink-light);
+}
+.std-letter-month {
+  font-family: "alex brush", cursive;
+  font-size: 2.2rem;
+  color: var(--pink-deep);
+  text-align: center;
+  margin-bottom: 10px;
+  text-transform: none;
+}
+.std-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+.std-cal-dow {
+  font-family: "Jost", sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  text-align: center;
+  padding-bottom: 6px;
+}
+.std-cal-day,
+.std-cal-blank {
+  position: relative;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.95rem;
+  color: var(--text-mid);
+  border-radius: 50%;
+}
+.std-cal-day--marked {
+  background: var(--pink-deep);
+  color: var(--white);
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(196, 137, 138, 0.5);
+}
+.std-cal-heart {
+  position: absolute;
+  top: -8px;
+  right: -4px;
+  font-style: normal;
+  font-size: 0.8rem;
+  color: #e0556a;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.2));
+  animation: std-heartbeat 1.4s ease-in-out infinite;
+}
+@keyframes std-heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+}
+.std-letter-date {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--pink-light);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  row-gap: 6px;
+  column-gap: 12px;
+}
+.std-letter-date-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: "Jost", sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: var(--text-mid);
+  white-space: nowrap;
+}
+.std-letter-date-icon {
+  font-style: normal;
+  font-size: 0.85rem;
+  line-height: 1;
+}
+.std-letter-date-sep {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--pink-mid);
+}
+
+.std-caption {
+  margin-top: 44px;
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--text-mid);
+  max-width: 360px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* =============================================
+   GALERI ENGAGEMENT — paling bawah, dua baris geser
+   ============================================= */
+.gallery-section {
+  position: relative;
+  padding: 90px 5% 70px;
+  text-align: center;
+  background: var(--cream-dark);
+  overflow: hidden;
+}
+.gallery-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+.gallery-wrap:last-of-type {
+  margin-bottom: 20px;
+}
+.gallery-row-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  color: var(--pink-deep);
+  text-transform: none;
+  margin-bottom: 16px;
+}
+.gallery-row-label::before,
+.gallery-row-label::after {
+  content: "";
+  width: 34px;
+  height: 1px;
+  background: var(--pink-light);
+}
+.gallery-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 400;
+  color: var(--text-dark);
+  margin-bottom: 28px;
+}
+.gallery-scroll {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding: 6px 6px 20px;
+  cursor: grab;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pink-mid) transparent;
+  user-select: none;
+}
+.gallery-scroll.dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+}
+.gallery-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+.gallery-scroll::-webkit-scrollbar-thumb {
+  background: var(--pink-light);
+  border-radius: 6px;
+}
+
+.gallery-item {
+  flex: 0 0 auto;
+  width: 220px;
+  aspect-ratio: 3/4;
+  border-radius: 14px;
+  overflow: hidden;
+  scroll-snap-align: center;
+  background: var(--pink-pale);
+  border: 1px solid var(--pink-light);
+  box-shadow: 0 12px 30px rgba(58, 46, 46, 0.1);
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+.gallery-item--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.gallery-item--empty img {
+  display: none;
+}
+.gallery-item--empty::before {
+  content: "🌸";
+  font-size: 1.6rem;
+  position: absolute;
+  top: 36%;
+  opacity: 0.7;
+}
+.gallery-item--empty::after {
+  content: "Foto Menyusul";
+  font-family: "Jost", sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--pink-deep);
+  position: absolute;
+  top: 54%;
+}
+.gallery-hint {
+  display: block;
+  margin-top: 8px;
+  font-family: "Jost", sans-serif;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  color: var(--text-light);
+  text-transform: uppercase;
+}
+
+/* =============================================
+   COUPLE
+   ============================================= */
+.couple-section {
+  position: relative;
+  padding: 100px 5%;
+  text-align: center;
+  background: var(--cream);
+  overflow: hidden;
+}
+.couple-ornament {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(212, 165, 165, 0.1) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+.couple-ornament--left {
+  left: -100px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.couple-ornament--right {
+  right: -100px;
+  top: 30%;
+}
+
+.couple-grid {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.person-card {
+  flex: 1;
+  min-width: 240px;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+.person-photo-wrap {
+  position: relative;
+  display: inline-block;
+}
+.person-photo {
+  width: 190px;
+  height: 230px;
+  border-radius: 110px 110px 75px 75px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: var(--shadow-card);
+}
+.bride-photo {
+  background: linear-gradient(160deg, #f7eded 0%, #edd5d5 100%);
+}
+.groom-photo {
+  background: linear-gradient(160deg, #edf0f7 0%, #d5dced 100%);
+}
+.photo-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.photo-inner img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.photo--empty img {
+  display: none;
+}
+.photo-ring {
+  position: absolute;
+  inset: -8px;
+  border-radius: 118px 118px 84px 84px;
+  border: 2px solid var(--pink-light);
+  pointer-events: none;
+}
+.person-info {
+  text-align: center;
+}
+.person-name {
+  font-family: "Great Vibes", cursive;
+  font-size: 2.8rem;
+  color: var(--pink-deep);
+  line-height: 1;
+  margin-bottom: 5px;
+}
+.person-fullname {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--text-mid);
+  margin-bottom: 14px;
+}
+.person-divider {
+  width: 36px;
+  height: 1px;
+  background: var(--pink-light);
+  margin: 0 auto 14px;
+}
+.person-parents {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 4px;
+}
+.person-parent-name {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1rem;
+  color: var(--text-dark);
+  font-weight: 500;
+}
+.person-and {
+  font-family: "Great Vibes", cursive;
+  font-size: 1.5rem;
+  color: var(--pink-mid);
+  margin: 2px 0;
+}
+
+.couple-heart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  padding-top: 56px;
+}
+@keyframes heartPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.22);
+  }
+}
+.heart-pulse {
+  animation: heartPulse 2s ease-in-out infinite;
+  filter: drop-shadow(0 4px 12px rgba(212, 165, 165, 0.5));
+}
+
+/* =============================================
+   EVENT — foto garden background
+   ============================================= */
+.event-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.event-bg-photo {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(58, 46, 46, 0.15) 0%,
+      rgba(58, 46, 46, 0.05) 100%
+    ),
+    url("../assets/images/bg-event.jpg") center/cover no-repeat,
+    var(--cream-dark);
+  z-index: 0;
+}
+.event-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(240, 230, 220, 0.65) 40%,
+    rgba(253, 248, 244, 0.88) 75%,
+    var(--cream) 100%
+  );
+  z-index: 1;
+}
+
+.event-inner {
+  position: relative;
+  z-index: 2;
+  padding: 100px 5%;
+  text-align: center;
+}
+
+.event-card {
+  position: relative;
+  display: inline-block;
+  max-width: 520px;
+  width: 100%;
+  margin: 0 auto 40px;
+}
+.event-card-inner {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--pink-light);
+  border-radius: 24px;
+  padding: 44px 36px;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.event-card-inner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--pink-light),
+    var(--pink-mid),
+    var(--gold-light)
+  );
+}
+.event-icon {
+  margin-bottom: 14px;
+}
+.event-type {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.7rem;
+  font-weight: 400;
+  color: var(--text-dark);
+  margin-bottom: 24px;
+}
+.event-details-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+  margin-bottom: 28px;
+}
+.event-detail-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.detail-icon {
+  font-size: 1.1rem;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+.event-detail-row strong {
+  display: block;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.05rem;
+  color: var(--text-dark);
+  margin-bottom: 1px;
+}
+.event-detail-row p {
+  font-size: 0.86rem;
+  color: var(--text-mid);
+}
+
+.maps-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: var(--pink-pale);
+  border: 1.5px solid var(--pink-mid);
+  border-radius: 50px;
+  color: var(--pink-deep);
+  text-decoration: none;
+  font-family: "Jost", sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: var(--tr);
+}
+.maps-btn:hover {
+  background: var(--pink-mid);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(212, 165, 165, 0.4);
+}
+
+.map-embed-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  border: 1px solid var(--pink-light);
+}
+.map-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 14px 20px;
+  background: linear-gradient(to top, rgba(253, 248, 244, 0.92), transparent);
+  display: flex;
+  justify-content: center;
+}
+.map-link-overlay {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--pink-deep);
+  text-decoration: none;
+  font-family: "Jost", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  transition: opacity 0.2s;
+}
+.map-link-overlay:hover {
+  opacity: 0.7;
+}
+
+/* =============================================
+   DRESSCODE
+   ============================================= */
+.dresscode-section {
+  padding: 80px 5%;
+  text-align: center;
+  background: var(--cream-dark);
+}
+.dresscode__swatch {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--white);
+  border-radius: 18px;
+  padding: 14px 24px;
+  box-shadow: 0 8px 20px -12px rgba(168, 93, 98, 0.25);
+  margin-bottom: 16px;
+}
+.dresscode__label {
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin: 0 0 2px;
+}
+.dresscode__name {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  margin: 0;
+  color: var(--text-dark);
+}
+.dresscode__name span {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--text-light);
+}
+.dresscode__circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #f3e9da;
+  border: 3px solid var(--white);
+  box-shadow: 0 0 0 1px #c9a66b33;
+  flex-shrink: 0;
+}
+.dresscode__note {
+  max-width: 420px;
+  margin: 0 auto 32px;
+  color: var(--text-mid);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.dresscode__panel {
+  max-width: 520px;
+  margin: 0 auto;
+  background: var(--white);
+  border: 1px solid var(--pink-light);
+  border-radius: 24px;
+  padding: 28px 20px;
+  box-shadow: var(--shadow-soft);
+}
+.dresscode__panel-title {
+  display: inline-block;
+  background: var(--pink-deep);
+  color: var(--white);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 5px 16px;
+  border-radius: 999px;
+  margin: -46px 0 22px;
+}
+.dresscode__cols {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+.dresscode__col {
+  flex: 1;
+  min-width: 150px;
+}
+.dresscode__col h4 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pink-deep);
+  margin: 0 0 12px;
+}
+.dresscode__sep {
+  width: 1px;
+  align-self: stretch;
+  background: var(--pink-light);
+  min-height: 150px;
+}
+.dresscode__photos {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+.dresscode__photo {
+  width: 100px;
+  aspect-ratio: 3/4;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--pink-light);
+}
+.dresscode__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.dresscode__photo--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dresscode__photo--empty::after {
+  content: "Foto contoh";
+  font-size: 0.62rem;
+  color: var(--pink-deep);
+  text-align: center;
+  padding: 0 5px;
+}
+.dresscode__photo--empty img {
+  display: none;
+}
+.dresscode__hint {
+  margin-top: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: var(--text-mid);
+}
+.dresscode__hint svg {
+  color: var(--pink-deep);
+  flex-shrink: 0;
+}
+.dresscode__hint p {
+  margin: 0;
+  text-align: left;
+  max-width: 270px;
+}
+
+/* =============================================
+   FOOTER
+   ============================================= */
+.footer {
+  position: relative;
+  padding: 80px 5% 70px;
+  background: var(--cream-dark);
+  text-align: center;
+  overflow: hidden;
+  border-top: 1px solid var(--pink-light);
+}
+.footer-floral {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(212, 165, 165, 0.14) 0%,
+    transparent 50%
+  );
+}
+.footer-content {
+  position: relative;
+  z-index: 1;
+}
+.footer-lily {
+  width: 120px;
+  margin: 0 auto 16px;
+  opacity: 0.65;
+  filter: drop-shadow(0 8px 16px rgba(196, 137, 138, 0.3));
+}
+.footer-names {
+  font-family: "Great Vibes", cursive;
+  font-size: 3.2rem;
+  color: var(--pink-deep);
+  margin-bottom: 6px;
+  line-height: 1;
+}
+.footer-names em {
+  font-style: normal;
+  font-size: 0.72em;
+}
+.footer-date {
+  font-family: "Jost", sans-serif;
+  font-size: 0.76rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 24px;
+}
+.footer-quote {
+  max-width: 460px;
+  margin: 0 auto 28px;
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 0.96rem;
+  color: var(--text-mid);
+  line-height: 1.7;
+}
+.footer-divider {
+  width: 72px;
+  height: 1px;
+  background: var(--pink-light);
+  margin: 0 auto 22px;
+}
+.footer-made {
+  font-size: 0.76rem;
+  color: var(--text-light);
+  letter-spacing: 0.08em;
+}
+
+/* =============================================
+   MUSIC PLAYER
+   ============================================= */
+.music-player {
+  position: fixed;
+  bottom: 28px;
+  left: 28px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.music-toggle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pink-deep);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+  box-shadow: 0 6px 20px rgba(196, 137, 138, 0.4);
+}
+.music-toggle:hover {
+  transform: scale(1.1);
+}
+.music-toggle.playing {
+  animation: pulse 1.8s ease-in-out infinite;
+}
+#musicIcon {
+  font-size: 1.1rem;
+}
+.music-label {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 0.8rem;
+  color: var(--text-mid);
+  background: var(--white);
+  padding: 5px 12px;
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgba(58, 46, 46, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  white-space: nowrap;
+}
+.music-player:hover .music-label {
+  opacity: 1;
+}
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (max-width: 768px) {
+  .couple-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  .couple-heart {
+    padding-top: 0;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  .rsvp-form {
+    padding: 32px 22px;
+  }
+  .event-card-inner {
+    padding: 34px 22px;
+  }
+  .cover-photo {
+    height: clamp(240px, 42vh, 420px);
+  }
+  .std-rose {
+    width: 90px;
+  }
+  .std-rose--left {
+    left: -40px;
+    top: -28px;
+  }
+  .std-rose--right {
+    right: -40px;
+    bottom: -20px;
+  }
+  .gallery-item {
+    width: 180px;
+  }
+  .gallery-section {
+    padding: 70px 5% 50px;
+  }
+  .gallery-wrap {
+    margin-bottom: 32px;
+  }
+  .dresscode__sep {
+    display: none;
+  }
+  .hero-section {
+    min-height: 0;
+    padding-top: 70px;
+    padding-bottom: 24px;
+  }
+  .hero-content {
+    height: auto;
+    padding: 12px;
+  }
+  .hero-couple-photo {
+    max-width: 96vw;
+    max-height: none;
+  }
+}
+@media (max-width: 480px) {
+  .cover-content {
+    padding: 28px 18px;
+  }
+  .section-title {
+    font-size: 1.9rem;
+  }
+  .music-player {
+    bottom: 20px;
+    left: 20px;
+  }
+  .cover-photo {
+    height: clamp(190px, 34vh, 320px);
+    opacity: 0.9;
+  }
+  .cover-photo--bride {
+    left: clamp(-18px, -4vw, 0px);
+  }
+  .cover-photo--groom {
+    right: clamp(-18px, -4vw, 0px);
+  }
+  .hero-section {
+    min-height: 0;
+    padding-top: 60px;
+    padding-bottom: 20px;
+  }
+  .hero-content {
+    height: auto;
+    padding: 8px;
+  }
+  .hero-couple-photo {
+    max-width: 98vw;
+    max-height: none;
+  }
+  .std-rose {
+    display: none;
+  }
+  .std-card-wrap {
+    max-width: 300px;
+  }
+  .std-countdown {
+    gap: 6px;
+  }
+  .cd-item {
+    min-width: 52px;
+    padding: 10px 10px;
+  }
+  .cd-num {
+    font-size: 1.7rem;
+  }
+  .gallery-item {
+    width: 150px;
+  }
+}
